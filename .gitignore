@@ -1,0 +1,47 @@
+.idea/
+*.iml
+.vscode/
+.venv/
+.env
+target/
+**/target/
+node_modules/
+**/node_modules/
+apps/web/dist/
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
+runtime/assets/**
+!runtime/assets/README.md
+runtime/work/**
+!runtime/work/README.md
+runtime/saves/**
+!runtime/saves/README.md
+runtime/ssh/**
+*.sl2
+*.err
+*.co2
+*.bak
+*.log
+__pycache__/
+*.py[cod]
+
+# 本地研究输入，仅作交叉验证，不进入项目历史。
+ER - PvE Health_Defense_DmgNeg_Resistances_Drops_Flags*.xlsx
+/saves/
+/material/
+/分类草稿.xlsx
+
+# Local maintenance/research documents are not public source.
+/AGENTS.md
+/PROJECT.md
+/TODO.md
+/CHANGELOG_AI.md
+/docs/
+/private/
+*.bundle
+*.ct
+*.CT
+*.pem
+*.key

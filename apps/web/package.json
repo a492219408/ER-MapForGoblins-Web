@@ -1,0 +1,27 @@
+{
+  "name": "@mfg/web",
+  "version": "0.1.0",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "typecheck": "tsc -b --pretty false"
+  },
+  "dependencies": {
+    "@zebbedaja/er-save-parser": "0.1.13",
+    "maplibre-gl": "5.24.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.16",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "typescript": "6.0.3",
+    "vite": "8.0.16",
+    "vitest": "4.1.8"
+  }
+}

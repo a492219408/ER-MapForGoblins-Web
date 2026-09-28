@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mapforgoblins.dev/schema/bridge-protocol-v1.json",
+  "title": "Map for Goblins Save Bridge Protocol v1",
+  "type": "object",
+  "$defs": {
+    "health": {
+      "type": "object",
+      "required": ["protocolVersion", "bridgeVersion", "ready", "pairing", "sameOriginWeb"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "bridgeVersion": { "type": "string" },
+        "ready": { "type": "boolean" },
+        "pairing": { "const": "ONE_TIME_LINK" },
+        "sameOriginWeb": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "pairResponse": {
+      "type": "object",
+      "required": ["protocolVersion", "accessToken"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "accessToken": { "type": "string", "minLength": 32 }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "type": "object",
+      "required": ["protocolVersion", "ready", "fileName", "size", "lastModified", "revision", "errorCode"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "ready": { "type": "boolean" },
+        "fileName": { "type": "string" },
+        "size": { "type": "integer", "minimum": 0 },
+        "lastModified": { "type": ["string", "null"], "format": "date-time" },
+        "revision": { "type": ["string", "null"] },
+        "errorCode": { "enum": ["FILE_MISSING", "FILE_UNREADABLE", null] }
+      },
+      "additionalProperties": false
+    },
+    "error": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

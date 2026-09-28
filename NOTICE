@@ -1,0 +1,22 @@
+ER Map for Goblins Web
+Copyright (c) 2026 ER Map for Goblins Web contributors
+
+SPDX-License-Identifier: GPL-3.0-only
+
+Except for third-party material identified in THIRD_PARTY_NOTICES.md and
+third_party/licenses/, the original source code, build scripts, and public
+documentation in this repository are licensed under the GNU General Public
+License, version 3 only (not "version 3 or any later version").
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of version 3 of the GNU General Public License as published by the
+Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See LICENSE for the full terms.
+
+Third-party software retains its own copyright and license notices. Game
+assets, saves, extracted data, and separately held research correspondence are
+not distributed as part of this source repository and are not relicensed by
+this notice.

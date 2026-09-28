@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.16.1",
+  "sendingGateEntityIds": [
+    11001692,
+    11051680,
+    12021203,
+    12021204,
+    12021205,
+    14001660,
+    34101600,
+    1033461610,
+    1033471610,
+    1034471610,
+    1034511620,
+    1039421610,
+    1040521640,
+    1047381610,
+    1047561500,
+    1048571500,
+    1050361610,
+    1050361612,
+    1050561510,
+    1051361600,
+    2047441610
+  ],
+  "sendingGateActivationFlagIds": {
+    "11001692": 15000800,
+    "1033461610": 1033460610,
+    "1033471610": 1033470610,
+    "1034471610": 1034470610
+  },
+  "sendingGateSharedCapitalStateEntityIds": [11001692],
+  "markers": [
+    {
+      "id": 3001223100,
+      "paramdexName": "Supplemental NPC: Boc the Seamster - East Raya Lucaria Gate",
+      "mapId": "m60_36_48_00",
+      "position": [-84.911, 321.06, -90.611],
+      "iconId": 80,
+      "textSlots": [
+        {
+          "textId": 122310,
+          "kind": "npc",
+          "activeWhenAny": [
+            {
+              "enabledFlagIds": [3947],
+              "disabledFlagIds": [3943, 3956, 3957, 11109819, 1039519209]
+            }
+          ]
+        }
+      ],
+      "source": {
+        "kind": "msb-npc-event",
+        "mapId": "m60_36_48_00",
+        "entityId": 1036480700,
+        "eventId": 1036483700
+      }
+    },
+    {
+      "id": 3001224000,
+      "paramdexName": "Supplemental NPC: Smithing Master/Counselor Iji - Road to the Manor",
+      "mapId": "m60_34_49_00",
+      "position": [40.694, 275.675, -50.547],
+      "iconId": 80,
+      "textSlots": [
+        {
+          "slot": 3,
+          "textId": 122400,
+          "kind": "npc",
+          "activeWhenAny": [
+            {
+              "enabledFlagIds": [3760, 3765],
+              "disabledFlagIds": []
+            }
+          ]
+        },
+        {
+          "slot": 4,
+          "textId": 122401,
+          "kind": "npc",
+          "activeWhenAny": [
+            {
+              "enabledFlagIds": [3760, 3766],
+              "disabledFlagIds": []
+            },
+            {
+              "enabledFlagIds": [3760, 3767],
+              "disabledFlagIds": []
+            },
+            {
+              "enabledFlagIds": [3768],
+              "disabledFlagIds": []
+            }
+          ]
+        }
+      ],
+      "source": {
+        "kind": "msb-npc-event",
+        "mapId": "m60_34_49_00",
+        "entityId": 1034490700,
+        "eventId": 1034490700
+      }
+    },
+    {
+      "id": 3001326000,
+      "paramdexName": "Supplemental NPC: Knight Bernahl - Warmaster's Shack",
+      "mapId": "m60_42_38_00",
+      "position": [12.301, 188.016, 89.593],
+      "iconId": 80,
+      "textSlots": [
+        {
+          "textId": 132600,
+          "kind": "npc",
+          "activeWhenAny": [
+            {
+              "enabledFlagIds": [3880, 3885],
+              "disabledFlagIds": [3888, 1042382718]
+            }
+          ]
+        }
+      ],
+      "source": {
+        "kind": "msb-npc-event",
+        "mapId": "m60_42_38_00",
+        "entityId": 1042380710,
+        "eventId": 1042383700
+      }
+    }
+  ]
+}

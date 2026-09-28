@@ -1,0 +1,36 @@
+# Deny by default: local assets, saves, research, credentials, and Git history
+# must never be sent as Docker build context.
+**
+!Dockerfile
+!package.json
+!pnpm-workspace.yaml
+!pnpm-lock.yaml
+!pom.xml
+!LICENSE
+!NOTICE
+!THIRD_PARTY_NOTICES.md
+!third_party/
+third_party/*
+!third_party/licenses/
+!third_party/licenses/**
+!apps/
+apps/*
+!apps/web/
+apps/web/*
+!apps/web/package.json
+!apps/web/index.html
+!apps/web/tsconfig.json
+!apps/web/vite.config.ts
+!apps/web/src/
+!apps/web/src/**
+!apps/server/
+apps/server/*
+!apps/server/pom.xml
+!apps/server/src/
+!apps/server/src/**
+!apps/save-bridge/
+apps/save-bridge/*
+!apps/save-bridge/Dockerfile
+!apps/save-bridge/pom.xml
+!apps/save-bridge/src/
+!apps/save-bridge/src/**

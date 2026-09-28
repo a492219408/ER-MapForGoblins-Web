@@ -1,0 +1,55 @@
+services:
+  app:
+    build:
+      context: .
+    environment:
+      MFG_ASSET_BASE_URL: ${MFG_ASSET_BASE_URL:-}
+      MFG_ASSETS_DIRECTORY: ${MFG_ASSETS_DIRECTORY:-/opt/mfg/assets}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      - ./runtime/assets:/opt/mfg/assets:ro
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8080/actuator/health/readiness"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  assets:
+    profiles: ["assets"]
+    image: nginx:1.29-alpine
+    ports:
+      - "${ASSETS_PORT:-8081}:8080"
+    volumes:
+      - ./infra/assets/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./runtime/assets:/srv/assets:ro
+    restart: unless-stopped
+
+  save-bridge:
+    profiles: ["bridge"]
+    build:
+      context: .
+      dockerfile: apps/save-bridge/Dockerfile
+    command:
+      - --save
+      - ${BRIDGE_SAVE_PATH:-/saves/ER0000.sl2}
+      - --bind
+      - 0.0.0.0
+      - --port
+      - "51337"
+      - --advertise-host
+      - ${BRIDGE_ADVERTISE_HOST:-localhost}
+      - --web-root
+      - /opt/mfg/web
+      - --no-console
+    ports:
+      - "${BRIDGE_PORT:-51337}:51337"
+    volumes:
+      - "${BRIDGE_SAVE_DIRECTORY:-./runtime/saves}:/saves:ro"
+      - bridge-config:/home/mfg/.config
+    restart: unless-stopped
+
+volumes:
+  bridge-config:

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: er-map-for-goblins-web
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+mfg:
+  assets:
+    base-url: ${MFG_ASSET_BASE_URL:}
+    directory: ${MFG_ASSETS_DIRECTORY:}

@@ -1,0 +1,21 @@
+{
+  "name": "er-map-for-goblins-web",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "build:data:err": "node tools/data-builder/build-err-dataset.mjs",
+    "build:data:profile": "node tools/data-builder/build-err-dataset.mjs",
+    "build:marker-texts": "node tools/data-builder/build-marker-texts.mjs",
+    "build:monster-data": "python tools/monster-data/build-monster-data.py",
+    "build:item-data": "python tools/item-data/build-item-data.py",
+    "build:source-manifest": "node tools/game-data/build-source-manifest.mjs",
+    "compare:source-manifests": "node tools/game-data/compare-source-manifests.mjs",
+    "build:maps": "node tools/map-assets/build-map-assets.mjs",
+    "build:game-texts": "node tools/map-assets/build-map-assets.mjs --messages-only true",
+    "dev": "pnpm --filter @mfg/web dev",
+    "build": "pnpm --filter @mfg/web build",
+    "test": "python tools/monster-data/build_monster_data_test.py && python tools/item-data/build_item_data_test.py && pnpm --filter @mfg/web test && node --test tools/data-builder/*.test.mjs tools/game-data/*.test.mjs tools/save-analysis/*.test.mjs",
+    "typecheck": "pnpm --filter @mfg/web typecheck"
+  }
+}

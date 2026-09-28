@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "game": "elden-ring",
+  "release": {
+    "applicationVersion": "1.17",
+    "calibrationsVersion": "1.17",
+    "executableFileVersion": "2.7.0.0",
+    "regulationInternalVersion": 11701000,
+    "verifiedSaveLayoutVersion": 260
+  },
+  "previousRelease": {
+    "applicationVersion": "1.16.2",
+    "calibrationsVersion": "1.16.1",
+    "executableFileVersion": "2.6.2.0",
+    "regulationInternalVersion": 11611000,
+    "verifiedSaveLayoutVersion": 252
+  },
+  "source": {
+    "previousFingerprint": "04007d0cd9353585ea34c6ca53378499a26afe749ce0cb579744c961e998f8ba",
+    "currentFingerprint": "b877d3ff239854355afeb5ad9c2a5b1e88b2f709d0828bcd40e783b28a238b34",
+    "previousQuickFingerprint": "bcacac822e413be8704090058444eb8bbf02299b31d65c993c7113ffe877b98a",
+    "currentQuickFingerprint": "ba15e50b8d7ecc06d8f3d1b09c07a2c529ace72991abc3a9030d692ebfd522bc",
+    "previousRegulationSha256": "7b6d07c357b639c902d48403ffe3612db35e0cf8d6fcc82d3fb24ea6eb6cf30a",
+    "currentRegulationSha256": "fb4afd25e70effc9f9523d3aba89b1fb3e08b0800d8efb9a535cab038c5e8bbd",
+    "changedCoreFileCount": 10,
+    "patchNotes": "https://store.steampowered.com/news/app/1245620/view/667248424192575311"
+  },
+  "resourceImpact": {
+    "mapTilesChanged": false,
+    "mapTileMasksChanged": false,
+    "worldMapPointParamChanged": false,
+    "messagesChanged": true,
+    "menuItemIconsChanged": true,
+    "eventsChanged": true,
+    "mapPlacementsChanged": true,
+    "regulationChanged": true
+  },
+  "regulation": {
+    "memberCount": 194,
+    "changedMemberCount": 26,
+    "confirmedUnchanged": ["AtkParam_Npc", "WorldMapPointParam"],
+    "changedTables": [
+      { "table": "ActionButtonParam", "oldRows": 399, "newRows": 400, "addedRows": 1, "changedRows": 0 },
+      { "table": "AssetEnvironmentGeometryParam", "rowDiffUnavailable": true },
+      { "table": "AtkParam_Pc", "rowDiffUnavailable": true },
+      { "table": "AttackElementCorrectParam", "oldRows": 184, "newRows": 186, "addedRows": 2, "changedRows": 0 },
+      { "table": "BaseChrSelectMenuParam", "oldRows": 15, "newRows": 17, "addedRows": 2, "changedRows": 0 },
+      { "table": "BehaviorParam_PC", "rowDiffUnavailable": true },
+      { "table": "Bullet", "rowDiffUnavailable": true },
+      { "table": "CharMakeMenuListItemParam", "oldRows": 228, "newRows": 230, "addedRows": 2, "changedRows": 0 },
+      { "table": "CharaInitParam", "oldRows": 3240, "newRows": 3273, "addedRows": 33, "changedRows": 0 },
+      { "table": "EquipMtrlSetParam", "oldRows": 841, "newRows": 845, "addedRows": 4, "changedRows": 0 },
+      { "table": "EquipParamGoods", "oldRows": 2326, "newRows": 2329, "addedRows": 3, "changedRows": 0 },
+      { "table": "EquipParamProtector", "oldRows": 820, "newRows": 838, "addedRows": 18, "changedRows": 9 },
+      { "table": "EquipParamWeapon", "oldRows": 3554, "newRows": 3636, "addedRows": 82, "changedRows": 299 },
+      { "table": "FaceParam", "oldRows": 565, "newRows": 573, "addedRows": 8, "changedRows": 15 },
+      { "table": "ItemLotParam_map", "rowDiffUnavailable": true },
+      { "table": "NpcAiBehaviorProbability", "rowDiffUnavailable": true },
+      { "table": "NpcParam", "oldRows": 7039, "newRows": 7045, "addedRows": 6, "changedRows": 8 },
+      { "table": "NpcThinkParam", "oldRows": 2214, "newRows": 2215, "addedRows": 1, "changedRows": 2 },
+      { "table": "ReinforceParamWeapon", "oldRows": 913, "newRows": 939, "addedRows": 26, "changedRows": 0 },
+      { "table": "RideParam", "oldRows": 94, "newRows": 98, "addedRows": 4, "changedRows": 0 },
+      { "table": "ShopLineupParam", "oldRows": 1277, "newRows": 1296, "addedRows": 19, "changedRows": 0 },
+      { "table": "SpEffectParam", "rowDiffUnavailable": true },
+      { "table": "SpEffectSetParam", "oldRows": 401, "newRows": 402, "addedRows": 1, "changedRows": 0 },
+      { "table": "SpEffectVfxParam", "rowDiffUnavailable": true },
+      { "table": "SwordArtsParam", "oldRows": 276, "newRows": 278, "addedRows": 2, "changedRows": 1 },
+      { "table": "WepAbsorpPosParam", "oldRows": 69, "newRows": 70, "addedRows": 1, "changedRows": 0 }
+    ]
+  },
+  "derivedData": {
+    "vanillaMarkers": { "previous": 7011, "current": 7041, "mapped": 7040, "categoryCount": 57 },
+    "officialMapMarkers": 495,
+    "items": { "previous": 2672, "current": 2701, "iconCount": 2454, "localeCount": 15 },
+    "monsterReferenceRows": 3341,
+    "monsterOfficialNameRows": 606,
+    "monsterOfficialLocationRows": 3140
+  },
+  "notes": [
+    "网页静态资源由用户合法取得的游戏文件在本机生成，不提交游戏资产。",
+    "怪物数值仍来自 App 1.13 社区工作簿；1.17 AtkParam_Npc 未变化，但新增 NpcParam 行不在该工作簿中。"
+  ]
+}
