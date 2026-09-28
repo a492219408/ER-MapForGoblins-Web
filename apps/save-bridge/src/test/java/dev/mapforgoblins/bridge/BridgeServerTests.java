@@ -128,6 +128,8 @@ class BridgeServerTests {
                 var response = client.send(HttpRequest.newBuilder(bridge.bridgeBaseUri().resolve(path)).GET().build(),
                         HttpResponse.BodyHandlers.ofString());
                 assertEquals(200, response.statusCode());
+                assertTrue(response.headers().firstValue("Content-Security-Policy").orElse("")
+                        .contains("worker-src 'self' blob:"));
                 assertTrue(response.headers().firstValue("Content-Type").orElse("")
                         .contains(path.endsWith(".json") ? "application/json" : "text/html"));
             }
