@@ -1,4 +1,5 @@
 import type { GameRelease } from './game-release';
+import { resolveAssetBases } from './asset-base';
 
 export type MarkerGroup = 'equipment' | 'key-items' | 'collectibles' | 'world';
 export type MapPlane = 'surface' | 'underground' | 'shadow';
@@ -401,7 +402,7 @@ async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
 
 export function assetUrl(path: string): string {
   const configuredBase = import.meta.env.VITE_MFG_ASSET_BASE_URL?.trim();
-  if (configuredBase) return `${configuredBase.replace(/\/$/, '')}/${path}`;
+  if (configuredBase) return new URL(path, resolveAssetBases(configuredBase, document.baseURI)[0]).toString();
   if (resolvedAssetBaseUrl) return new URL(path, resolvedAssetBaseUrl).toString();
   return new URL(path, document.baseURI).toString();
 }
@@ -436,12 +437,7 @@ async function fetchDatasetManifest(profile: DatasetProfile, signal?: AbortSigna
 }
 
 function assetBaseCandidates(): string[] {
-  const configuredBase = import.meta.env.VITE_MFG_ASSET_BASE_URL?.trim();
-  if (configuredBase) return [`${configuredBase.replace(/\/$/, '')}/`];
-  return [...new Set([
-    new URL('.', document.baseURI).toString(),
-    new URL('assets/', document.baseURI).toString(),
-  ])];
+  return resolveAssetBases(import.meta.env.VITE_MFG_ASSET_BASE_URL, document.baseURI);
 }
 
 function validMapTileManifest(manifest: MapTileManifest, frame: MapCoordinateFrame): boolean {

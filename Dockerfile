@@ -1,4 +1,4 @@
-FROM node:24-bookworm-slim AS web-build
+FROM node:24-bookworm-slim@sha256:0e0ff40c39bc087845bfb27465a0df4ea419520094bc35842ff83dd8cbe6f9b6 AS web-build
 WORKDIR /workspace
 RUN corepack enable
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
@@ -7,7 +7,7 @@ RUN pnpm install --frozen-lockfile
 COPY apps/web apps/web
 RUN pnpm --filter @mfg/web build
 
-FROM maven:3.9.11-eclipse-temurin-25 AS server-build
+FROM maven:3.9.11-eclipse-temurin-25@sha256:407c4423cec0cf2981055bc2c6c0dc211d9605b6669279b95997f2d1c7e91e2c AS server-build
 WORKDIR /workspace
 COPY pom.xml pom.xml
 COPY apps/server/pom.xml apps/server/pom.xml
@@ -16,7 +16,7 @@ COPY apps/server/src apps/server/src
 COPY --from=web-build /workspace/apps/web/dist apps/server/src/main/resources/static
 RUN mvn -B -pl apps/server -am package -DskipTests
 
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:25-jre@sha256:8da0490fa9a3c26867012019565948eef0ee69438f5c75ac28146967bae984b5
 WORKDIR /opt/mfg
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends curl \

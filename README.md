@@ -30,7 +30,24 @@ GEOM/GEOF collection tracking, parts of equipment/effect interpretation, NPC que
 
 You can manage tools with [mise](https://mise.jdx.dev/) and prefix the commands below with `mise exec --`. Otherwise, place them on PATH. Python must also be visible to the shell used by package scripts; separate test commands are provided below.
 
-Local checks have used Java 25, Maven 3.9.11, Node 26.3.0, and Python 3.14.6. Container configuration uses Node 24. This does not establish support for every browser or operating system.
+The reproducibility toolchain is pinned in [mise.toml](mise.toml): Node 24.21.0, pnpm 11.19.0, Temurin 25.0.4+7, Maven 3.9.11, and Python 3.14.6. Container base images are pinned by digest. Updating these pins requires another build/deployment check; package downloads and image builds are not claimed to be byte-for-byte reproducible.
+
+On a minimal Debian 13 system, install the following as root (or with `sudo`):
+
+```sh
+apt-get update
+apt-get install --yes ca-certificates curl git libatomic1
+```
+
+`libatomic1` is required by the standalone pnpm executable installed by mise. Install mise using its [official instructions](https://mise.jdx.dev/getting-started.html), then prepare the pinned tools from the repository root:
+
+```sh
+mise trust
+mise install
+mise exec -- pnpm install --frozen-lockfile
+```
+
+Use `mise exec --` before subsequent commands if your shell is not activated. mise 2026.9.16 was used for the Debian validation. Previous Windows checks used Node 26.3.0; browser and OS coverage remains limited.
 
 ## Run the web application
 
@@ -121,6 +138,18 @@ docker compose --profile bridge up --build save-bridge
 ```
 
 Set the save directory, container save path, and advertised host before starting the Bridge profile. Building an image does not create game data. Signed native installers are not currently provided.
+
+The Bridge image expects game data at `/game-assets/`; Compose mounts `runtime/assets/` read-only under that URL without replacing its bundled JavaScript/CSS. The application server exposes the same bundle under `/assets/`. Stable manifest URLs require revalidation when replacing a bundle.
+
+Check the deployed application, including its JavaScript/CSS rather than only the health endpoint:
+
+```sh
+mise exec -- node tools/deployment/smoke-test.mjs http://localhost:8080/
+# After providing a generated game bundle:
+mise exec -- node tools/deployment/smoke-test.mjs http://localhost:8080/ --assets
+```
+
+See [deployment checks](tools/deployment/README.md) for the standalone assets-service check. A clean source checkout can pass the first command; the second requires your local resource bundle. Browser interaction and actual save compatibility are separate validation steps.
 
 ## Repository layout
 

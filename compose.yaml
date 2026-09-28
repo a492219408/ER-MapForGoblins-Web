@@ -19,7 +19,7 @@ services:
 
   assets:
     profiles: ["assets"]
-    image: nginx:1.29-alpine
+    image: nginx:1.29-alpine@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
     ports:
       - "${ASSETS_PORT:-8081}:8080"
     volumes:
@@ -48,6 +48,7 @@ services:
       - "${BRIDGE_PORT:-51337}:51337"
     volumes:
       - "${BRIDGE_SAVE_DIRECTORY:-./runtime/saves}:/saves:ro"
+      - ./runtime/assets:/opt/mfg/web/game-assets:ro
       - bridge-config:/home/mfg/.config
     restart: unless-stopped
 

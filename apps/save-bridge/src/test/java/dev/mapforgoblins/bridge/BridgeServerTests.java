@@ -112,6 +112,33 @@ class BridgeServerTests {
     }
 
     @Test
+    void servesTheWebRootAndReportsMissingResourcesAsNotFound() throws Exception {
+        var webRoot = temporaryDirectory.resolve("web");
+        Files.createDirectories(webRoot.resolve("game-assets"));
+        Files.writeString(webRoot.resolve("index.html"), "<!doctype html><title>Test</title>");
+        Files.writeString(webRoot.resolve("game-assets/dataset-index.v1.json"), "{\"schemaVersion\":1}");
+        var configuration = new BridgeConfiguration(
+                temporaryDirectory.resolve("synthetic.sl2"), URI.create("http://localhost:8080"),
+                "127.0.0.1", 0, "127.0.0.1",
+                "access-token-that-is-at-least-thirty-two-characters", webRoot);
+        try (var bridge = new BridgeServer(configuration, new PairingService());
+             var client = HttpClient.newHttpClient()) {
+            bridge.start();
+            for (var path : new String[]{"/", "/game-assets/dataset-index.v1.json"}) {
+                var response = client.send(HttpRequest.newBuilder(bridge.bridgeBaseUri().resolve(path)).GET().build(),
+                        HttpResponse.BodyHandlers.ofString());
+                assertEquals(200, response.statusCode());
+                assertTrue(response.headers().firstValue("Content-Type").orElse("")
+                        .contains(path.endsWith(".json") ? "application/json" : "text/html"));
+            }
+            for (var path : new String[]{"/missing.js", "/game-assets/missing.v1.json", "/%2e%2e/outside.txt"}) {
+                assertEquals(404, client.send(HttpRequest.newBuilder(bridge.bridgeBaseUri().resolve(path)).GET().build(),
+                        HttpResponse.BodyHandlers.discarding()).statusCode());
+            }
+        }
+    }
+
+    @Test
     void rateLimitsRepeatedPairingFailures() throws Exception {
         var savePath = temporaryDirectory.resolve("rate-limit.sl2");
         Files.write(savePath, new byte[]{7});

@@ -27,11 +27,18 @@ public class AssetWebConfiguration implements WebMvcConfigurer {
         if (!location.endsWith("/")) {
             location += "/";
         }
-        registry.addResourceHandler("/assets/dataset-manifest.v1.json")
-                .addResourceLocations(location)
+        // Stable entrypoints occur at the root, feature, and profile levels.
+        // A variable keeps the filename in the resource lookup path; an exact
+        // URL mapping would strip it and try to resolve the directory itself.
+        registry.addResourceHandler(
+                        "/assets/{name:.*\\.v[0-9]+\\.json}",
+                        "/assets/{directory}/{name:.*\\.v[0-9]+\\.json}",
+                        "/assets/{directory}/{profile}/{name:.*\\.v[0-9]+\\.json}")
+                .addResourceLocations("classpath:/static/assets/", location)
                 .setCacheControl(CacheControl.noCache());
         registry.addResourceHandler("/assets/**")
-                .addResourceLocations(location)
+                // Vite's JS/CSS share this URL prefix with external game data.
+                .addResourceLocations("classpath:/static/assets/", location)
                 .setCacheControl(CacheControl.maxAge(Duration.ofDays(365)).cachePublic().immutable());
     }
 }

@@ -190,9 +190,6 @@ final class BridgeServer implements AutoCloseable {
         var relative = requestPath.equals("/") ? "index.html" : requestPath.substring(1);
         var candidate = root.resolve(relative).normalize();
         if (!candidate.startsWith(root) || !Files.isRegularFile(candidate)) {
-            candidate = root.resolve("index.html").normalize();
-        }
-        if (!candidate.startsWith(root) || !Files.isRegularFile(candidate)) {
             sendError(exchange, 404, "WEB_NOT_FOUND", "网页文件不存在");
             return;
         }

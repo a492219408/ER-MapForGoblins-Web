@@ -30,7 +30,24 @@ GEOM/GEOF 收集状态、部分装备/附加效果解释、NPC 任务图和手�
 
 可以用 [mise](https://mise.jdx.dev/) 管理工具，并在下列命令前添加 `mise exec --`；也可以自行把工具加入 PATH。Windows 上组合测试还要求包脚本子进程能找到 Python，后文提供分项命令。
 
-本地已用 Java 25、Maven 3.9.11、Node 26.3.0、Python 3.14.6 检查；容器配置使用 Node 24。这不代表全部浏览器与操作系统都已验证。
+复现工具链固定在 [mise.toml](mise.toml)：Node 24.21.0、pnpm 11.19.0、Temurin 25.0.4+7、Maven 3.9.11、Python 3.14.6。容器基础镜像固定摘要；升级这些版本后应重新验证构建和部署。这里不承诺依赖下载及镜像构建产物逐字节一致。
+
+精简安装的 Debian 13 先以 root（或使用 `sudo`）安装：
+
+```sh
+apt-get update
+apt-get install --yes ca-certificates curl git libatomic1
+```
+
+mise 安装的独立 pnpm 可执行文件需要 `libatomic1`。按 [官方说明](https://mise.jdx.dev/getting-started.html) 安装 mise 后，在仓库根目录准备固定工具：
+
+```sh
+mise trust
+mise install
+mise exec -- pnpm install --frozen-lockfile
+```
+
+未激活 shell 时，后续命令前加 `mise exec --`。Debian 验证使用 mise 2026.9.16；此前 Windows 检查使用 Node 26.3.0。浏览器与操作系统的验证范围仍有限。
 
 ## 启动网页
 
@@ -121,6 +138,18 @@ docker compose --profile bridge up --build save-bridge
 ```
 
 启动 Bridge profile 前设置存档目录、容器内文件路径和对外主机地址。构建镜像不会生成游戏数据；目前没有提供已签名原生安装包。
+
+Bridge 镜像从 `/game-assets/` 读取资源，Compose 将 `runtime/assets/` 只读挂载到该地址，保留镜像内的前端 JS/CSS。应用服务器则在 `/assets/` 提供相同资源包。固定名称的数据清单需要重新验证缓存，确保替换资源包后能读取更新。
+
+部署后检查实际 HTML 引用的 JS/CSS，而不只检查健康接口：
+
+```sh
+mise exec -- node tools/deployment/smoke-test.mjs http://localhost:8080/
+# 已提供生成资源包时：
+mise exec -- node tools/deployment/smoke-test.mjs http://localhost:8080/ --assets
+```
+
+独立资源服务的检查见 [部署验证说明](tools/deployment/README.md)。纯源码可以通过第一条命令，第二条需要本地资源包；浏览器交互与真实存档兼容性需要另外验证。
 
 ## 源码结构
 

@@ -1,4 +1,5 @@
 import type { GameRelease } from './game-release';
+import { resolveAssetBases } from './asset-base';
 
 export type MonsterStatValue = number | string | boolean | null;
 
@@ -178,10 +179,5 @@ function localizedValue(labels: Record<string, string> | undefined, locale: stri
 }
 
 function assetBaseCandidates(): string[] {
-  const configuredBase = import.meta.env.VITE_MFG_ASSET_BASE_URL?.trim();
-  if (configuredBase) return [`${configuredBase.replace(/\/$/, '')}/`];
-  return [...new Set([
-    new URL('.', document.baseURI).toString(),
-    new URL('assets/', document.baseURI).toString(),
-  ])];
+  return resolveAssetBases(import.meta.env.VITE_MFG_ASSET_BASE_URL, document.baseURI);
 }

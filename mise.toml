@@ -1,0 +1,6 @@
+[tools]
+node = "24.21.0"
+pnpm = "11.19.0"
+java = "temurin-25.0.4+7.0.LTS"
+maven = "3.9.11"
+python = "3.14.6"

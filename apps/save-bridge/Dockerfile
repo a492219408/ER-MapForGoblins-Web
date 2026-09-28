@@ -1,13 +1,15 @@
-FROM node:24-bookworm-slim AS web-build
+FROM node:24-bookworm-slim@sha256:0e0ff40c39bc087845bfb27465a0df4ea419520094bc35842ff83dd8cbe6f9b6 AS web-build
 WORKDIR /workspace
 RUN corepack enable
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY apps/web/package.json apps/web/package.json
 RUN pnpm install --frozen-lockfile
 COPY apps/web apps/web
+ARG VITE_MFG_ASSET_BASE_URL=/game-assets
+ENV VITE_MFG_ASSET_BASE_URL=${VITE_MFG_ASSET_BASE_URL}
 RUN pnpm --filter @mfg/web build
 
-FROM maven:3.9.11-eclipse-temurin-25 AS bridge-build
+FROM maven:3.9.11-eclipse-temurin-25@sha256:407c4423cec0cf2981055bc2c6c0dc211d9605b6669279b95997f2d1c7e91e2c AS bridge-build
 WORKDIR /workspace
 COPY pom.xml pom.xml
 COPY apps/server/pom.xml apps/server/pom.xml
@@ -15,7 +17,7 @@ COPY apps/save-bridge/pom.xml apps/save-bridge/pom.xml
 COPY apps/save-bridge/src apps/save-bridge/src
 RUN mvn -B -pl apps/save-bridge -am package -DskipTests
 
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:25-jre@sha256:8da0490fa9a3c26867012019565948eef0ee69438f5c75ac28146967bae984b5
 WORKDIR /opt/mfg
 RUN useradd --system --uid 10001 --create-home mfg \
     && mkdir -p /home/mfg/.config /opt/mfg/web /saves \

@@ -34,4 +34,6 @@ The [versioned protocol](../../packages/bridge-protocol/README.md) defines healt
 
 The root Compose file has a `bridge` profile. Set `BRIDGE_SAVE_DIRECTORY`, `BRIDGE_SAVE_PATH`, and `BRIDGE_ADVERTISE_HOST` before using it. The save mount is read-only.
 
+The Docker frontend is built with `/game-assets` as its asset base. Compose mounts `runtime/assets/` read-only at `/opt/mfg/web/game-assets`, separately from the bundled JS/CSS. This does not embed game resources into the image. Missing static files return 404; only `/` serves `index.html` (page selection uses query parameters and pairing uses a URL fragment).
+
 `jpackage` can create a platform-specific app image from the JAR using Java 25. A signed, automated multi-platform installer pipeline is not included. See the [main README](../../README.md) for development requirements and licensing.
